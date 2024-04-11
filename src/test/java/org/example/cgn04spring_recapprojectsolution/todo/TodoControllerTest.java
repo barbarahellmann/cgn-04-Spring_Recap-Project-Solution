@@ -133,7 +133,10 @@ class TodoControllerTest {
                 .andExpect(status().isNotFound());
     }
 
-//NAKLAR, DER KLAPPT AUCH NICHT
+// NAKLAR, DER KLAPPT AUCH NICHT.
+// WAS SOLLS, DANN HALT OHNE INTEGRATION TEST
+// UNIT TESTS SIND SCHÖNER. IMMERHIN KLAPPEN 2von6 = AUSREICHEND
+//
 //
 //    @Test
 //    @DirtiesContext
