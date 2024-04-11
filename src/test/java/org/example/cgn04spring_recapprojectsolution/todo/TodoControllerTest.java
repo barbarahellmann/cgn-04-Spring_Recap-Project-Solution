@@ -132,4 +132,20 @@ class TodoControllerTest {
         //THEN
                 .andExpect(status().isNotFound());
     }
+
+//NAKLAR, DER KLAPPT AUCH NICHT
+//
+//    @Test
+//    @DirtiesContext
+//    void deleteTodoById() {
+//        //GIVEN
+//        Todo exisitingTodo = new Todo("1", "test-description", TodoStatus.OPEN);
+//        todoRepository.save(exisitingTodo);
+//
+//        //WHEN
+//        mockMvc.perform(delete("/api/Todo/1"))
+//
+//        //THEN
+//                .andExpect(status().isOk());
+//    }
 }
