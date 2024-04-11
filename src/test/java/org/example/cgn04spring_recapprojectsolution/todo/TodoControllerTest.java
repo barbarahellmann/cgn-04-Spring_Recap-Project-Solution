@@ -5,20 +5,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.mock.http.server.reactive.MockServerHttpRequest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
-import java.awt.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.springframework.test.web.client.match.MockRestRequestMatchers.jsonPath;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
 @SpringBootTest
@@ -37,7 +29,7 @@ class TodoControllerTest {
         //GIVEN
 
         //WHEN
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/todo"))
+        mockMvc.perform(get("/api/todo"))
 
         //THEN
                 .andExpect(status().isOk())
@@ -48,11 +40,11 @@ class TodoControllerTest {
 //  DIESER INTEGRATIONSTEST KLAPPT NICHT
 
 //    @Test
-//    void postTodo() {
+//    void postTodo() throws Exception {
 //        //GIVEN
 //
 //        //WHEN
-//        mockMvc.perform(MockServerHttpRequest.post("/api/todo")
+//        mockMvc.perform(post("/api/todo")
 //                .contentType(MediaType.APPLICATION_JSON)
 //                .content("""
 //                           {
