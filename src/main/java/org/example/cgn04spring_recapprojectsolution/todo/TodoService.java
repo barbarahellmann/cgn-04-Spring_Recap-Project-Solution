@@ -4,6 +4,7 @@ package org.example.cgn04spring_recapprojectsolution.todo;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class TodoService {
@@ -31,5 +32,9 @@ public class TodoService {
     public Todo updateTodo(UpdateTodo todo, String id) {
         Todo todoToUpdate = new Todo(id, todo.description(), todo.status());
         return todoRepository.save(todoToUpdate);
+    }
+
+    public Todo findTodoById(String id) {
+        return todoRepository.findById(id).orElseThrow(() -> new NoSuchElementException("Todo with id: " + id + " not found!"));
     }
 }

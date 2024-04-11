@@ -29,4 +29,9 @@ public class TodoController {
         return todoService.updateTodo(todo, id);
 
     }
+
+    @GetMapping("{id}")
+    public Todo getTodoById(@PathVariable String id) {
+        return todoService.findTodoById(id);
+    }
 }

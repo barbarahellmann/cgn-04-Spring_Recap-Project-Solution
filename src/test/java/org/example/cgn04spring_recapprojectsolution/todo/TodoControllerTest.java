@@ -95,4 +95,41 @@ class TodoControllerTest {
 //                        """));
 //
 //}
+
+//   KEIN TEST KLAPPT
+//
+//    @Test
+//    @DirtiesContext
+//    void getById() throws Exception {
+//        //GIVEN
+//        Todo existingTodo = new Todo("1", "test-description", TodoStatus.OPEN);
+//        todoRepository.save(existingTodo);
+//
+//        //WHEN
+//        mockMvc.perform(get("/api/todo/1"))
+//
+//        //THEN
+//                .andExpect(status().isOk())
+//                .andExpect(content().json("""
+//                            {
+//                                "id": "1",
+//                                "description": "test-description-2",
+//                                "satus": "OPEN"
+//                            }
+//                        """));
+//    }
+
+
+    // WOHOO ENDLICH KLAPPT EIN TEST
+    @Test
+    @DirtiesContext
+    void getByIdTest_whenInvalidId_thenStatus404() throws Exception {
+        //GIVEN
+
+        //WHEN
+        mockMvc.perform(get("/api/todo/1"))
+
+        //THEN
+                .andExpect(status().isNotFound());
+    }
 }
