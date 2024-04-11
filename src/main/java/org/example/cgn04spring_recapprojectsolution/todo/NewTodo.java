@@ -1,9 +1,7 @@
 package org.example.cgn04spring_recapprojectsolution.todo;
 
-public record Todo(
-        String id,
+public record NewTodo(
         String description,
         String status
-
 ) {
 }

@@ -11,16 +11,16 @@ import static org.mockito.Mockito.*;
 class TodoServiceTest {
 
     TodoRepository todoRepository =  mock(TodoRepository.class);
-    TodoService todoService = new TodoService(todoRepository);
+    IdService idService = mock(IdService.class);
+    TodoService todoService = new TodoService(todoRepository, idService);
 
     @Test
     void findAllTodos() {
         //GIVEN
-        Todo t1 = new Todo("1");
-        Todo t2 = new Todo("2");
-        Todo t3 = new Todo("3");
+        Todo t1 = new Todo("1", "d1", "OPEN");
+        Todo t2 = new Todo("2", "d3", "OPEN");
+        Todo t3 = new Todo("3", "d2", "OPEN");
         List<Todo> todos = List.of(t1,t2,t3);
-
         when(todoRepository.findAll()).thenReturn(todos);
 
         //WHEN
@@ -29,5 +29,44 @@ class TodoServiceTest {
         //THEN
         verify(todoRepository).findAll();
         assertEquals(todos, actual);
+    }
+
+    @Test
+    void addTodo() {
+        //GIVEN
+        NewTodo newTodo = new NewTodo("Test-Description", "OPEN");
+        Todo todoToSave = new Todo("Test-Id", "Test-Description", "OPEN");
+
+        when(idService.randomId()).thenReturn("Test-Id");
+        when(todoRepository.save(todoToSave)).thenReturn(todoToSave);
+
+        //WHEN
+        Todo actual = todoService.addTodo(newTodo);
+
+        //THEN
+        verify(idService).randomId();
+        verify(todoRepository).save(todoToSave);
+
+        assertEquals(todoToSave, actual);
+    }
+
+    @Test
+    void updateTodo() {
+        //GIVEN
+        String id = "123";
+        UpdateTodo todoToUpdate = new UpdateTodo("test-description", "IN_PROGRESS");
+
+        Todo updatedTodo = new Todo("123", "test-description", "IN_PROGRESS");
+
+        when(todoRepository.save(updatedTodo)).thenReturn(updatedTodo);
+
+        //WHEN
+
+        Todo actual = todoService.updateTodo(todoToUpdate, id);
+
+        //THEN
+        verify(todoRepository).save(updatedTodo);
+
+        assertEquals(updatedTodo, actual);
     }
 }
