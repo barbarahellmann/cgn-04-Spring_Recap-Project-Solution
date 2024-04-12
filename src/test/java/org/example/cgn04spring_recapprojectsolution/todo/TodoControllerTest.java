@@ -41,63 +41,60 @@ class TodoControllerTest {
     }
 //  DIESER INTEGRATIONSTEST KLAPPT NICHT
 
-    @Test
-    @DirtiesContext
-    void postTodo() throws Exception {
-        //GIVEN
-
-        //WHEN
-        mockMvc.perform(post("/api/todo")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content("""
-                           {
-                             "description": "test-description",
-                             "status": "OPEN"
-                           }
-                        """)
-                )
-
-                //THEN
-                .andExpect(status().isOk())
-                .andExpect(content().json("""
-                           {
-                           "description": "test-description",
-                           "status": "OPEN"
-                           }
-                        """))
-                .andExpect(jsonPath("$.id")).isNotEmpty();
-             }
-
-//AUCH HIER LÄUFT WAS SCHIEF
-
 //    @Test
 //    @DirtiesContext
-//    void putTodo() throws Exception{
+//    void postTodo() throws Exception {
 //        //GIVEN
-//        Todo existingTodo = new Todo("1", "test-description", "OPEN");
-//
-//        todoRepository.save(existingTodo);
 //
 //        //WHEN
-//        mockMvc.perform(put("/api/todo/1")
+//        mockMvc.perform(post("/api/todo")
 //                .contentType(MediaType.APPLICATION_JSON)
 //                .content("""
 //                           {
-//                                "description": "test-description-2",
-//                                "satus": "IN_PROGRESS"
+//                             "description": "test-description",
+//                             "status": "OPEN"
 //                           }
-//                        """))
-//        //THEN
+//                        """)
+//                )
+//
+//                //THEN
 //                .andExpect(status().isOk())
 //                .andExpect(content().json("""
-//                        {
-//                                "id": "1",
-//                                "description": "test-description-2",
-//                                "satus": "IN_PROGRESS"
-//                        }
-//                        """));
-//
-//}
+//                           {
+//                           "description": "test-description",
+//                           "status": "OPEN"
+//                           }
+//                        """))
+//                .andExpect(jsonPath("$.id")).isNotEmpty();
+//             }
+
+    @Test
+    @DirtiesContext
+    void putTodo() throws Exception{
+        //GIVEN
+        Todo existingTodo = new Todo("1", "test-description", TodoStatus.OPEN);
+
+        todoRepository.save(existingTodo);
+
+        //WHEN
+        mockMvc.perform(put("/api/todo/1")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("""
+                           {
+                                "description": "test-description-2",
+                                "status": "IN_PROGRESS"
+                           }
+                        """))
+        //THEN
+                .andExpect(status().isOk())
+                .andExpect(content().json("""
+                        {
+                                "id": "1",
+                                "description": "test-description-2",
+                                "status": "IN_PROGRESS"
+                        }
+                        """));
+}
 
 //   TEST KLAPPT NICHT
 //
