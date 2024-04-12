@@ -39,34 +39,33 @@ class TodoControllerTest {
                         []
                         """));
     }
-//  DIESER INTEGRATIONSTEST KLAPPT NICHT
 
-//    @Test
-//    @DirtiesContext
-//    void postTodo() throws Exception {
-//        //GIVEN
-//
-//        //WHEN
-//        mockMvc.perform(post("/api/todo")
-//                .contentType(MediaType.APPLICATION_JSON)
-//                .content("""
-//                           {
-//                             "description": "test-description",
-//                             "status": "OPEN"
-//                           }
-//                        """)
-//                )
-//
-//                //THEN
-//                .andExpect(status().isOk())
-//                .andExpect(content().json("""
-//                           {
-//                           "description": "test-description",
-//                           "status": "OPEN"
-//                           }
-//                        """))
-//                .andExpect(jsonPath("$.id")).isNotEmpty();
-//             }
+    @Test
+    @DirtiesContext
+    void postTodo() throws Exception {
+        //GIVEN
+
+        //WHEN
+        mockMvc.perform(post("/api/todo")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("""
+                           {
+                             "description": "test-description",
+                             "status": "OPEN"
+                           }
+                        """)
+                )
+
+                //THEN
+                .andExpect(status().isOk())
+                .andExpect(content().json("""
+                           {
+                           "description": "test-description",
+                           "status": "OPEN"
+                           }
+                        """))
+                .andExpect(jsonPath("$.id").isNotEmpty());
+             }
 
     @Test
     @DirtiesContext
