@@ -7,7 +7,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -39,31 +41,32 @@ class TodoControllerTest {
     }
 //  DIESER INTEGRATIONSTEST KLAPPT NICHT
 
-//    @Test
-//    void postTodo() throws Exception {
-//        //GIVEN
-//
-//        //WHEN
-//        mockMvc.perform(post("/api/todo")
-//                .contentType(MediaType.APPLICATION_JSON)
-//                .content("""
-//                           {
-//                             "description": "test-description",
-//                             "satus": "OPEN"
-//                           }
-//                        """)
-//                )
-//
-//                //THEN
-//                .andExpect(status().isOk())
-//                .andExpect(content().json("""
-//                           {
-//                           "description": "test-description",
-//                           "satus": "OPEN"
-//                           }
-//                        """))
-//                .andExpect(jsonPath("$.id")).isNotEmpty());
-//             }
+    @Test
+    @DirtiesContext
+    void postTodo() throws Exception {
+        //GIVEN
+
+        //WHEN
+        mockMvc.perform(post("/api/todo")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("""
+                           {
+                             "description": "test-description",
+                             "status": "OPEN"
+                           }
+                        """)
+                )
+
+                //THEN
+                .andExpect(status().isOk())
+                .andExpect(content().json("""
+                           {
+                           "description": "test-description",
+                           "status": "OPEN"
+                           }
+                        """))
+                .andExpect(jsonPath("$.id")).isNotEmpty();
+             }
 
 //AUCH HIER LÄUFT WAS SCHIEF
 
@@ -96,7 +99,7 @@ class TodoControllerTest {
 //
 //}
 
-//   KEIN TEST KLAPPT
+//   TEST KLAPPT NICHT
 //
 //    @Test
 //    @DirtiesContext
@@ -120,7 +123,6 @@ class TodoControllerTest {
 //    }
 
 
-    // WOHOO ENDLICH KLAPPT EIN TEST
     @Test
     @DirtiesContext
     void getByIdTest_whenInvalidId_thenStatus404() throws Exception {
@@ -134,16 +136,14 @@ class TodoControllerTest {
     }
 
 // NAKLAR, DER KLAPPT AUCH NICHT.
-// WAS SOLLS, DANN HALT OHNE INTEGRATION TEST
-// UNIT TESTS SIND SCHÖNER. IMMERHIN KLAPPEN 2von6 = AUSREICHEND
 //
 //
 //    @Test
 //    @DirtiesContext
 //    void deleteTodoById() {
 //        //GIVEN
-//        Todo exisitingTodo = new Todo("1", "test-description", TodoStatus.OPEN);
-//        todoRepository.save(exisitingTodo);
+//        Todo existingTodo = new Todo("1", "test-description", TodoStatus.OPEN);
+//        todoRepository.save(existingTodo);
 //
 //        //WHEN
 //        mockMvc.perform(delete("/api/Todo/1"))
