@@ -131,11 +131,11 @@ class TodoControllerTest {
     }
 
 // NAKLAR, DER KLAPPT AUCH NICHT.
-//
-//
+
+
 //    @Test
 //    @DirtiesContext
-//    void deleteTodoById() {
+//    void deleteTodoById() throws Exception{
 //        //GIVEN
 //        Todo existingTodo = new Todo("1", "test-description", TodoStatus.OPEN);
 //        todoRepository.save(existingTodo);
